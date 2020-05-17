@@ -1,9 +1,15 @@
-module.exports = ({ config }) => {
-  config.module.rules.push({
-    test: /\.vue$/,
-    loader: "vue-docgen-loader",
-    enforce: "post",
-  });
-
-  return config;
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.scss$/,
+        use: ["vue-style-loader", "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.vue$/,
+        loader: "vue-docgen-loader",
+        enforce: "post",
+      },
+    ],
+  },
 };

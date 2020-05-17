@@ -1,9 +1,8 @@
 import { configure } from "@storybook/vue";
-import Vue from 'vue'
-import simpleExample from '../src/components/simpleExample.vue'
-Vue.component('simple-example', simpleExample)
+
 function loadStories() {
-    require('../src/stories/simpleExample.js')
+    require('../src/stories/simpleExample.js'),
+    require('../src/stories/simpleButton.js')
 }
 
 configure(loadStories, module)
