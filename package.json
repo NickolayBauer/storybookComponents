@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "storybook": "start-storybook"
+    "storybook": "start-storybook",
+    "deploy-storybook": "storybook-to-ghpages"
   },
   "dependencies": {
     "@storybook/addon-actions": "^5.3.18",
@@ -16,6 +17,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
+    "@storybook/storybook-deployer": "^2.8.6",
     "@storybook/vue": "^5.3.18",
     "@vue/cli-plugin-babel": "~4.3.0",
     "@vue/cli-plugin-eslint": "~4.3.0",
