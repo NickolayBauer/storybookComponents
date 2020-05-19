@@ -9,6 +9,8 @@
     "storybook": "start-storybook"
   },
   "dependencies": {
+    "@storybook/addon-actions": "^5.3.18",
+    "@storybook/addon-knobs": "^5.3.18",
     "core-js": "^3.6.4",
     "vue": "^2.6.11"
   },

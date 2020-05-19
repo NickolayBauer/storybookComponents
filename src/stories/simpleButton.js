@@ -1,15 +1,18 @@
 import { storiesOf } from "@storybook/vue";
 import { withInfo } from "storybook-addon-vue-info";
-import simpleButton from '../components/simpleButton.vue'
+// import {action} from '@storybook/addon-actions';
+import { withKnobs, text } from "@storybook/addon-knobs";
+import simpleButton from "../components/simpleButton.vue";
 
 const story = storiesOf("Simple Button", module);
 story.addDecorator(withInfo);
+story.addDecorator(withKnobs);
 
 story.add(
   "default button",
   () => ({
-    template: '<simple-button></simple-button>',
-    components: { simpleButton }
+    template: "<simple-button></simple-button>",
+    components: { simpleButton },
   }),
   {
     info: {},
@@ -19,8 +22,13 @@ story.add(
 story.add(
   "red button",
   () => ({
-    template: '<simple-button button-color="red" button-text="custom text"></simple-button>',
-    components: { simpleButton }
+    template: '<simple-button :button-text="buttonText" button-color="red"></simple-button>',
+    components: { simpleButton },
+    props: {
+      buttonText: {
+        default: text("text", "default text"),
+      },
+    },
   }),
   {
     info: {},
