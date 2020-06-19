@@ -5,6 +5,13 @@
       If you didn’t find the answer to your question fill out the Contact us
       form below
     </p>
+    <p
+      class="contact-us__error-message"
+      v-for="(error, index) in errors"
+      :key="index"
+    >
+      {{ error }}
+    </p>
     <form>
       <input
         class="contact-us-form_field contact-us-form__subject-input"
@@ -54,7 +61,7 @@
           </svg>
         </span>
       </div>
-      <button class="contact-us-form__button" type="button">
+      <button class="contact-us-form__button" type="button" @click="sendForm()">
         <span>
           SEND
         </span>
@@ -75,23 +82,65 @@
   </div>
 </template>
 <script>
+import { required } from "vuelidate/lib/validators";
 export default {
   data() {
     return {
       subject: "",
       message: "",
       files: [],
+      errors: [],
+      maxSizeAtt: 20,
     };
+  },
+  computed: {
+    isValidForm() {
+      let isValid =
+        this.checkInput(this.subject) &&
+        this.checkInput(this.message) &&
+        this.checkAttachments(this.files);
+      return isValid;
+    },
   },
   methods: {
     filesSelected(e) {
-      this.files = Array.from(e.target.files || e.dataTransfer.files);
+      let newFiles = Array.from(e.target.files || e.dataTransfer.files);
+      this.files = [...this.files, ...newFiles];
     },
     removeFile(index) {
       this.files.splice(index, 1);
-      if (!this.files.length) {
-        this.$refs.files.value = "";
+    },
+    addErorrs() {
+      if (!this.checkInput(this.subject))
+        this.errors.push("Subject is required field!");
+      if (!this.checkInput(this.message))
+        this.errors.push("Message is required field!");
+      if (!this.checkAttachments(this.files))
+        this.errors.push(
+          `Attachments size cannot more ${this.maxSizeAtt} megabytes`
+        );
+    },
+    sendForm() {
+      this.errors = [];
+      if (!this.isValidForm) {
+        this.addErorrs();
+        return false;
+      } else {
+        alert("done!");
+        //send form here
       }
+    },
+    checkInput(value) {
+      return value.length !== 0 || value !== "";
+    },
+    checkAttachments(list) {
+      let sumSize = Math.max.apply(
+        Math,
+        list.map(function(item) {
+          return item.size;
+        })
+      );
+      return this.maxSizeAtt >= sumSize / 1024 / 1024;
     },
   },
 };
@@ -102,6 +151,11 @@ export default {
 
 .contact-us-form {
   font-family: Roboto;
+  .contact-us__error-message {
+    color: #f44336;
+    margin: 8px 0;
+    font-size: 12px;
+  }
   .contact-us-form__main-text {
     font-weight: bold;
     font-size: 24px;
@@ -189,6 +243,7 @@ export default {
     }
     svg {
       vertical-align: bottom;
+      cursor: pointer;
     }
   }
   .contact-us-form__button {
@@ -204,6 +259,7 @@ export default {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    cursor: pointer;
     span {
       font-style: normal;
       font-weight: 500;
