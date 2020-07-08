@@ -53,8 +53,10 @@ export default {
     findMatches() {
       this.$nextTick(() => {
         this.matches = this.$el.querySelectorAll(".light-text");
-        this.current_item = 1;
-        this.scrollToMatch();
+        if (this.matches.length > 0) {
+          this.current_item = 1;
+          this.scrollToMatch();
+        }
       });
     },
     nextMatch() {
