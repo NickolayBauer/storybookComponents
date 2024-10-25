@@ -14,7 +14,7 @@
     "@storybook/addon-knobs": "^5.3.18",
     "chart.js": "^2.9.3",
     "core-js": "^3.6.4",
-    "vue": "^2.6.11",
+    "vue": "^3.0.0",
     "vue-carousel": "^0.18.0",
     "vue-chartjs": "^3.5.0"
   },
